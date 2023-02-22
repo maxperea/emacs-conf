@@ -1,5 +1,11 @@
 (use-package emacs
   :config
+  ;;;;;;;;;;MYCONF;;;;;;;;;;
+  (setq inhibit-startup-message t)
+  (toggle-scroll-bar -1)
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;
   (add-to-list 'default-frame-alist '(font . "JetBrains Mono 15"))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
@@ -98,7 +104,10 @@
   (setq eldoc-echo-area-use-multiline-p 2)
   (setq eldoc-echo-area-display-truncation-message nil)
   (setq eglot-confirm-server-initiated-edits nil)
-  :hook ((before-save . eglot-format-buffer))) ;; TODO: only do in
+  ;; TODO: Now manually editing 'eglot-highlight-smybol-face' to
+  ;; use 'secondary-selection', so that highlights actually are visible.
+  ;; TODO: Now manually removed calls go 'eglot--signal-textDocument/didSave' 
+  :hook ((before-save . eglot-format-buffer))) ;; TODO: only do in eglot mode
 
 (use-package yasnippet
   :config

@@ -54,7 +54,7 @@
   "<leader>ps"    'project-eshell
   "<leader>pk"    'project-kill-buffers
   "<leader>pr"    'project-query-replace-regexp
-  "<leader>pp"    'custom/project-switch-project)
+  "<leader>pp"    'my/project-switch-project)
 
   ;; Files
 (general-def 'normal 'global
