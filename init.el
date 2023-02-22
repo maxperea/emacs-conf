@@ -26,3 +26,7 @@
 (load (expand-file-name "languages.el" config-base-directory))
 (load (expand-file-name "custom.el"    config-base-directory))
 (load (expand-file-name "keys.el"      config-base-directory))
+
+;; Other files
+(load "~/.conf/emacs/custom.el")
+(load "~/.conf/emacs/taba.el")

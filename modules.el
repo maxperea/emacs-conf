@@ -11,9 +11,9 @@
   (add-hook 'text-mode-hook 'auto-fill-mode)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+  (setq backup-directory-alist `(("." . "~/.emacs_saves")))
   (setq gc-cons-threshold (* 100 1024 1024))
   (setq scroll-margin 8)
-  ;; (setq backup-directory-alist `(("." . "~/.saves")))
   (setq ring-bell-function #'ignore)
   (setq tab-always-indent 'complete)
   (setq show-trailing-whitespace t)
@@ -26,8 +26,6 @@
   (setq display-line-numbers-type 'visual)
   (global-display-line-numbers-mode 1)
 
-  ;; (toggle-scroll-bar -1)
-  ;; (tool-bar-mode -1)
 
   (blink-cursor-mode -1)
   (indent-tabs-mode nil)
@@ -66,6 +64,8 @@
 
 (use-package magit)
 
+(use-package git-timemachine)
+
 (use-package undo-tree
   :config
   (setq undo-tree-auto-save-history t)
@@ -95,9 +95,10 @@
 
 (use-package eglot
   :config
-  (setq eldoc-echo-area-use-multiline-p 5)
+  (setq eldoc-echo-area-use-multiline-p 2)
+  (setq eldoc-echo-area-display-truncation-message nil)
   (setq eglot-confirm-server-initiated-edits nil)
-  :hook ((before-save . eglot-format-buffer)))
+  :hook ((before-save . eglot-format-buffer))) ;; TODO: only do in
 
 (use-package yasnippet
   :config
@@ -111,7 +112,8 @@
 			   :files ("*.el" "*")))
 
 ;; Navigation
-(use-package consult)
+(use-package consult
+  :bind ("C-x b" . consult-buffer))
 
 (use-package vertico
   :config
@@ -122,7 +124,6 @@
 (use-package vertico-directory
   :after vertico
   :straight nil
-  ;; :ensure nil
   :bind (:map vertico-map
 	      ("RET" . vertico-directory-enter)
 	      ("DEL" . vertico-directory-delete-char)
@@ -183,4 +184,31 @@
   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
+(use-package hl-todo
+  :config
+  (setq hl-todo-keyword-faces
+	'(("TODO"   . "#FFD700")
+	  ("DONE"   . "#00FF00")
+	  ("FIXME"  . "#FF0000")))
+  (global-hl-todo-mode))
+
 ;; (use-package rg)
+
+;; Icons
+(use-package all-the-icons)
+
+(use-package all-the-icons-completion
+  :config
+  (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
+  (all-the-icons-completion-mode))
+
+(use-package svg-lib)
+
+(use-package kind-icon
+  :after corfu
+  :custom
+  (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+  :config
+  (setq kind-icon-use-icons t)
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
