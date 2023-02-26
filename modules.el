@@ -5,10 +5,6 @@
   (toggle-scroll-bar -1)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
-  (setq-default mode-line-format nil)
-  (setq-default window-divider-default-places t)
-  (setq-default window-divider-default-right-width 1)
-  (setq-default window-divider-default-bottom-width 1)
   ;;;;;;;;;;;;;;;;;;;;;;;;;;
   (add-to-list 'default-frame-alist '(font . "JetBrains Mono 15"))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -177,9 +173,7 @@
 
 ;; Look & Feel
 (use-package timu-spacegrey-theme
-  :ensure t
   :config
-  (customize-set-variable 'timu-spacegrey-mode-line-border nil)
   (load-theme 'timu-spacegrey t))
 
 (use-package git-gutter

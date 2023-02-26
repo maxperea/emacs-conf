@@ -8,10 +8,7 @@
 (use-package dart-mode
   :hook ((dart-mode . (lambda ()
 	      (setq-default eglot-workspace-configuration
-			    '((:dart . (:completeFunctionCalls t))))
-	      (eglot-ensure)))))
+			    '((:dart . (:completeFunctionCalls t))))))))
 (use-package rustic
   :config
-  (setq rustic-lsp-client 'eglot)
-  :hook
-  ((rust-mode . eglot-ensure)))
+  (setq rustic-lsp-client 'eglot))
