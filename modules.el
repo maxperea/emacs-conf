@@ -5,6 +5,10 @@
   (toggle-scroll-bar -1)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
+  (setq-default mode-line-format nil)
+  (setq-default window-divider-default-places t)
+  (setq-default window-divider-default-right-width 1)
+  (setq-default window-divider-default-bottom-width 1)
   ;;;;;;;;;;;;;;;;;;;;;;;;;;
   (add-to-list 'default-frame-alist '(font . "JetBrains Mono 15"))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -31,7 +35,6 @@
   (setq display-line-numbers-width-start t)
   (setq display-line-numbers-type 'visual)
   (global-display-line-numbers-mode 1)
-
 
   (blink-cursor-mode -1)
   (indent-tabs-mode nil)
@@ -104,6 +107,7 @@
   (setq eldoc-echo-area-use-multiline-p 2)
   (setq eldoc-echo-area-display-truncation-message nil)
   (setq eglot-confirm-server-initiated-edits nil)
+  (setq eglot-extend-to-xref t)
   ;; TODO: Now manually editing 'eglot-highlight-smybol-face' to
   ;; use 'secondary-selection', so that highlights actually are visible.
   ;; TODO: Now manually removed calls go 'eglot--signal-textDocument/didSave' 
@@ -172,17 +176,11 @@
   (corfu-popupinfo-mode))
 
 ;; Look & Feel
-(use-package doom-themes
+(use-package timu-spacegrey-theme
+  :ensure t
   :config
-  ;; Ugh, italic
-  (setq doom-themes-enable-italic nil)
-  (load-theme 'doom-spacegrey t))
-
-(use-package doom-modeline
-  :config
-  ;; Do not crop folder names in modeline.
-  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-  (doom-modeline-mode 1))
+  (customize-set-variable 'timu-spacegrey-mode-line-border nil)
+  (load-theme 'timu-spacegrey t))
 
 (use-package git-gutter
   :hook (prog-mode . git-gutter-mode))
@@ -201,23 +199,9 @@
 	  ("FIXME"  . "#FF0000")))
   (global-hl-todo-mode))
 
-;; (use-package rg)
-
-;; Icons
-(use-package all-the-icons)
-
-(use-package all-the-icons-completion
+(use-package nano-modeline
   :config
-  (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
-  (all-the-icons-completion-mode))
-
-(use-package svg-lib)
-
-(use-package kind-icon
-  :after corfu
-  :custom
-  (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-  :config
-  (setq kind-icon-use-icons t)
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
-
+  (setq nano-modeline-prefix 'default)
+  (defun nano-modeline-vc-branch () nil)
+  (setq nano-modeline-position 'bottom)
+  (nano-modeline-mode))
