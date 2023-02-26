@@ -99,6 +99,14 @@
 (general-def 'normal 'global
   "<leader>gg" 'magit)
 
+;; Git-timemachine
+;; (general-def 'normal 'global
+;;   "<leader>gt" 'git-timemachine)
+
+;; (general-def 'normal 'git-timemachine-mode
+;;   "C-p" 'git-timemachine-show-previous-revision
+;;   "C-n" 'git-timemachine-show-next-revision)
+
 ;; Undo tree
 (general-def 'normal 'global
   "u" 'undo-tree-undo

@@ -50,7 +50,10 @@
   (setq org-capture-journal-file (expand-file-name "journal.org" org-directory))
   (setq org-capture-todo-file (expand-file-name "todo.org" org-directory))
   (setq org-capture-templates
-	'(("l" "Personal Todo" entry
+	'(("t" "Personal Todo" entry
+	   (file+headline org-capture-todo-file "Todos")
+	   "* TODO %t %?\n%i\n" :prepend t)
+	  ("l" "Personal Todo with Link" entry
 	   (file+headline org-capture-todo-file "Todos")
 	   "* TODO %t %?\n%i\n%a" :prepend t)
 	  ("n" "Personal Note" entry
