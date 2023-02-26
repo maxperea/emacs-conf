@@ -1,11 +1,10 @@
 (use-package emacs
   :config
-  ;;;;;;;;;;MYCONF;;;;;;;;;;
   (setq inhibit-startup-message t)
   (toggle-scroll-bar -1)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;
+
   (add-to-list 'default-frame-alist '(font . "JetBrains Mono 15"))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
@@ -173,8 +172,17 @@
 
 ;; Look & Feel
 (use-package timu-spacegrey-theme
+  :straight
+  (timu-spacegrey-theme :type git :host github :repo "maxperea/timu-spacegrey-theme")
   :config
   (load-theme 'timu-spacegrey t))
+
+(use-package nano-modeline
+  :config
+  (setq nano-modeline-prefix 'default)
+  (defun nano-modeline-vc-branch () nil)
+  (setq nano-modeline-position 'bottom)
+  (nano-modeline-mode))
 
 (use-package git-gutter
   :hook (prog-mode . git-gutter-mode))
@@ -192,10 +200,3 @@
 	  ("DONE"   . "#00FF00")
 	  ("FIXME"  . "#FF0000")))
   (global-hl-todo-mode))
-
-(use-package nano-modeline
-  :config
-  (setq nano-modeline-prefix 'default)
-  (defun nano-modeline-vc-branch () nil)
-  (setq nano-modeline-position 'bottom)
-  (nano-modeline-mode))
