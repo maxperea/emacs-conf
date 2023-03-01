@@ -5,6 +5,14 @@
   (tool-bar-mode -1)
   (menu-bar-mode -1)
 
+  (setq tab-always-indent nil)
+
+  (setq window-divider-default-places t)
+  (setq window-divider-default-right-width 1)
+  (setq window-divider-default-bottom-width 1)
+  (window-divider-mode)
+  (setq-default mode-line-format nil)
+
   (add-to-list 'default-frame-alist '(font . "JetBrains Mono 15"))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
@@ -106,6 +114,8 @@
   (setq eldoc-echo-area-display-truncation-message nil)
   (setq eglot-confirm-server-initiated-edits nil)
   (setq eglot-extend-to-xref t)
+  (setq eglot-connect-timeout 2)
+  (setq eglot-sync-connect 0)
   ;; TODO: Now manually editing 'eglot-highlight-smybol-face' to
   ;; use 'secondary-selection', so that highlights actually are visible.
   ;; TODO: Now manually removed calls go 'eglot--signal-textDocument/didSave' 
@@ -155,8 +165,8 @@
 (use-package corfu
   :config
   (setq corfu-auto t
-	corfu-auto-delay 0.1
-	corfu-auto-prefix 0)
+	corfu-auto-delay 0.2
+	corfu-auto-prefix 1)
   (add-hook 'eshell-mode-hook
 	    (lambda ()
 	      (setq-local corfu-auto nil)
@@ -180,12 +190,13 @@
   :config
   (load-theme 'timu-spacegrey t))
 
-(use-package nano-modeline
-  :config
-  (setq nano-modeline-prefix 'default)
-  (defun nano-modeline-vc-branch () nil)
-  (setq nano-modeline-position 'bottom)
-  (nano-modeline-mode))
+;; (use-package nano-modeline
+;;   :config
+;;   (setq nano-modeline-prefix 'default)
+;;   (defun nano-modeline-vc-branch () nil)
+;;   (setq nano-modeline-position 'bottom)
+;;   (nano-modeline-mode))
+
 
 (use-package git-gutter
   :hook (prog-mode . git-gutter-mode))
