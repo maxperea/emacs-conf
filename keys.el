@@ -25,8 +25,6 @@
   "<leader>wv" 'evil-window-vsplit
   "<leader>ws" 'evil-window-split
   "<leader>wm" 'delete-other-windows
-  "<leader>ss" 'toggle-frame-maximized-undecorated
-  "<leader>sd" 'toggle-frame-maximized-undecorated-desktop
   "<leader>h"  'evil-window-set-height
   "<leader>H"  'evil-window-set-width
   ;; Search
@@ -111,3 +109,21 @@
 (general-def 'normal 'global
   "u" 'undo-tree-undo
   "C-r" 'undo-tree-redo)
+
+;; Custom functions
+(general-def 'normal 'global
+  "<leader>ss" 'toggle-frame-maximized-undecorated
+  "<leader>sd" 'toggle-frame-maximized-undecorated-desktop
+  "<leader>n" 'mpd/show-file-name)
+
+
+;; Avy
+(general-def 'normal 'global
+  "-" 'avy-goto-char-timer
+  "C-; C-;" 'avy-goto-char
+  "<leader> c l" 'avy-copy-line
+  "<leader> m l" 'avy-move-line
+  "<leader> k l" 'avy-kill-line
+  "<leader> c r" 'avy-copy-region
+  "<leader> m r" 'avy-move-region
+  "<leader> k r" 'avy-kill-region)

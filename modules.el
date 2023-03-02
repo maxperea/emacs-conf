@@ -190,14 +190,6 @@
   :config
   (load-theme 'timu-spacegrey t))
 
-;; (use-package nano-modeline
-;;   :config
-;;   (setq nano-modeline-prefix 'default)
-;;   (defun nano-modeline-vc-branch () nil)
-;;   (setq nano-modeline-position 'bottom)
-;;   (nano-modeline-mode))
-
-
 (use-package git-gutter
   :hook (prog-mode . git-gutter-mode))
 
@@ -214,3 +206,6 @@
 	  ("DONE"   . "#00FF00")
 	  ("FIXME"  . "#FF0000")))
   (global-hl-todo-mode))
+
+;; TEST
+(use-package avy)

@@ -30,6 +30,8 @@ project files."
   (interactive "sFont size:")
   (set-frame-font (concat "JetBrains Mono " size)))
 
+(defun mpd/show-file-name () (interactive) (message (buffer-file-name)))
+
 (defun toggle-frame-maximized-undecorated ()
   (interactive)
   (let* ((frame (selected-frame))
