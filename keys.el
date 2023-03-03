@@ -42,7 +42,9 @@
   ;; Theme
   "<leader>t"  'consult-theme
   ;; Winner
-  "L"          'winner-undo)
+  "L"          'winner-undo
+  ;; Lines
+  "<leader>xt" 'toggle-truncate-lines)
 
 ;; Project
 (general-def 'normal 'global
@@ -98,12 +100,12 @@
   "<leader>gg" 'magit)
 
 ;; Git-timemachine
-;; (general-def 'normal 'global
-;;   "<leader>gt" 'git-timemachine)
+(general-def 'normal 'global
+  "<leader>gt" 'git-timemachine)
 
-;; (general-def 'normal 'git-timemachine-mode
-;;   "C-p" 'git-timemachine-show-previous-revision
-;;   "C-n" 'git-timemachine-show-next-revision)
+(general-def 'normal 'git-timemachine
+  "C-p" 'git-timemachine-show-previous-revision
+  "C-n" 'git-timemachine-show-next-revision)
 
 ;; Undo tree
 (general-def 'normal 'global
@@ -123,7 +125,7 @@
   "C-; C-;" 'avy-goto-char
   "<leader> c l" 'avy-copy-line
   "<leader> m l" 'avy-move-line
-  "<leader> k l" 'avy-kill-line
+  "<leader> k l" 'avy-kill-whole-line
   "<leader> c r" 'avy-copy-region
   "<leader> m r" 'avy-move-region
   "<leader> k r" 'avy-kill-region)

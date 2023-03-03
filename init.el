@@ -22,8 +22,8 @@
 
 ;; Files to load
 (load (expand-file-name "modules.el"   config-base-directory))
-(load (expand-file-name "evil.el"      config-base-directory))
 (load (expand-file-name "languages.el" config-base-directory))
 (load (expand-file-name "custom.el"    config-base-directory))
+(load (expand-file-name "evil.el"      config-base-directory))
 (load (expand-file-name "keys.el"      config-base-directory))
 

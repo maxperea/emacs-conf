@@ -157,6 +157,11 @@
 	completion-category-defaults nil
 	completion-category-overrides '((file (styles partial-completion)))))
 
+(use-package marginalia
+  :after vertico
+  :config
+  (marginalia-mode))
+
 (use-package savehist
   :config
   (savehist-mode))

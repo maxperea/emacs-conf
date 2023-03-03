@@ -81,15 +81,28 @@ project files."
 (defun taba-android-release ()
     "Builds apk and moves it to shared folder."
   (interactive)
-  (compilation-start (concat "cd " taba-flutter-dir " && ./dorelease.sh")))
+  (compilation-start
+   (concat "cd " taba-flutter-dir " && ./dorelease.sh")))
 
 (defun taba-build-ios ()
   (interactive)
-  (compilation-start (concat "cd " taba-flutter-dir " && flutter build ios")))
+  (compilation-start
+   (concat "cd " taba-flutter-dir " && flutter build ios")))
 
 (defun taba-flutter-format-all ()
   (interactive)
-  (compilation-start (concat "cd " taba-flutter-dir " && flutter format lib")))
+  (compilation-start
+   (concat "cd " taba-flutter-dir " && flutter format lib")))
 
 (defun taba-build-and-run-local-docker () (interactive)
-       (compilation-start (concat "cd " taba-server-dir " && make docker-local-down && make docker-local-clean-up && make docker-local-build && make docker-local-up")))
+       (compilation-start
+	(concat "cd " taba-server-dir " && make docker-local-down && make docker-local-clean-up && make docker-local-build && make docker-local-up")))
+
+;; Frame sizing
+(defun mpd/frame/half-laptop () (interactive)
+       (set-frame-width nil 98)
+       (set-frame-height nil 56))
+
+(defun mpd/frame/full-laptop () (interactive)
+       (set-frame-width nil 198)
+       (set-frame-height nil 56))
