@@ -123,9 +123,9 @@
 (general-def 'normal 'global
   "-" 'avy-goto-char-timer
   "C-; C-;" 'avy-goto-char
-  "<leader> c l" 'avy-copy-line
-  "<leader> m l" 'avy-move-line
-  "<leader> k l" 'avy-kill-whole-line
-  "<leader> c r" 'avy-copy-region
-  "<leader> m r" 'avy-move-region
-  "<leader> k r" 'avy-kill-region)
+  "<leader>cl" 'avy-copy-line
+  "<leader>ml" 'avy-move-line
+  "<leader>kl" 'avy-kill-whole-line
+  "<leader>cr" 'avy-copy-region
+  "<leader>mr" 'avy-move-region
+  "<leader>kr" 'avy-kill-region)

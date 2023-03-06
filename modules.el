@@ -11,7 +11,21 @@
   (setq window-divider-default-right-width 1)
   (setq window-divider-default-bottom-width 1)
   (window-divider-mode)
+
   (setq-default mode-line-format nil)
+  ;; (setq-default mode-line-format '("%e"
+  ;; 				  mode-line-front-space
+  ;; 				  ;; mode-line-mule-info
+  ;; 				  mode-line-client
+  ;; 				  mode-line-modified
+  ;; 				  mode-line-remote
+  ;; 				  mode-line-frame-identification
+  ;; 				  mode-line-buffer-identification
+  ;; 				  ;; mode-line-position
+  ;; 				  ;; (vc-mode vc-mode)
+  ;; 				  ;; mode-line-modes
+  ;; 				  ;; mode-line-misc-info
+  ;; 				  mode-line-end-spaces))
 
   (add-to-list 'default-frame-alist '(font . "JetBrains Mono 15"))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
