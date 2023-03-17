@@ -1,50 +1,69 @@
 ;; Core
-(general-def 'normal 'global
+(general-def    'normal 'global
   ;; Eval
-  "<leader>ee" 'eval-defun
-  "<leader>eb" 'eval-buffer
-  "<leader>SPC"'execute-extended-command
-  "<leader>sh" 'eshell
+  "<leader>ee"  'eval-defun
+  "<leader>eb"  'eval-buffer
+  "<leader>SPC" 'execute-extended-command
+  "<leader>sh"  'eshell
+
+  ;;Edit
+  "<leader>es"  'replace-string
+  "<leader>er"  'replace-regexp
+  "<leader>eqs" 'query-replace
+  "<leader>uqr" 'query-replace-regexp
+
   ;; Navigation
-  "DEL"        'consult-buffer
-  "<leader>fs" 'save-buffer
-  "<leader>fS" 'save-some-buffers
-  "<leader>ff" 'find-file
-  "<leader>fo" 'consult-buffer-other-window
-  "<leader>bp" 'consult-project-buffer
-  "<leader>ll" 'consult-focus-lines
-  "<leader>bo" 'consult-buffer-other-window
-  "<leader>wq" 'evil-quit
-  "<leader>ww" 'save-and-quit
-  "<leader>qf" 'evil-quit-all
-  "<leader>qr" 'delete-frame
-  "<leader>wh" 'evil-window-left
-  "<leader>wl" 'evil-window-right
-  "<leader>wj" 'evil-window-down
-  "<leader>wk" 'evil-window-up
-  "<leader>wv" 'evil-window-vsplit
-  "<leader>ws" 'evil-window-split
-  "<leader>wm" 'delete-other-windows
-  "<leader>h"  'evil-window-set-height
-  "<leader>H"  'evil-window-set-width
+  "C-j"         'evil-forward-paragraph
+  "C-k"         'evil-backward-paragraph
+  "DEL"         'consult-buffer
+  "C-<return>"  'consult-imenu-multi
+  "<leader>cc"  'delete-other-windows
+  "<leader>cf"  'follow-delete-other-windows-and-split
+  "<leader>fs"  'save-buffer
+  "<leader>fS"  'save-some-buffers
+  "<leader>ff"  'find-file
+  "<leader>fo"  'consult-buffer-other-window
+  "<leader>bp"  'consult-project-buffer
+  "<leader>ll"  'consult-focus-lines
+  "<leader>bo"  'consult-buffer-other-window
+  "<leader>wq"  'evil-quit
+  "<leader>ww"  'save-and-quit
+  "<leader>qf"  'evil-quit-all
+  "<leader>qr"  'delete-frame
+  "<leader>wh"  'evil-window-left
+  "<leader>wl"  'evil-window-right
+  "<leader>wj"  'evil-window-down
+  "<leader>wk"  'evil-window-up
+  "<leader>wv"  'evil-window-vsplit
+  "<leader>ws"  'evil-window-split
+  "<leader>wm"  'delete-other-windows
+  "<leader>h"   'evil-window-set-height
+  "<leader>H"   'evil-window-set-width
+
   ;; Search
-  "<leader>/"  'consult-ripgrep
-  ","          'consult-line
-  "C-,"        'consult-line-multi
+  "<leader>/"   'consult-ripgrep
+  ","           'consult-line
+  "C-,"         'consult-line-multi
+
   ;; Flymake
-  "TAB"        'flymake-goto-next-error
-  "<leader>aN" 'consult-flymake
-  "<leader>aP" (lambda () (interactive) (consult-flymake t))
+  "TAB"         'flymake-goto-next-error
+  "<leader>aN"  'consult-flymake
+  "<leader>aP"  (lambda () (interactive) (consult-flymake t))
+  
   ;; Paste
-  "C-p"        'consult-yank-pop
+  "C-p"         'consult-yank-pop
+
   ;; Text
-  "<leader>fp" 'fill-paragraph
+  "<leader>fp"  'fill-paragraph
+
   ;; Theme
-  "<leader>t"  'consult-theme
+  "<leader>t"   'consult-theme
+
   ;; Winner
-  "L"          'winner-undo
+  "L"           'winner-undo
+
   ;; Lines
-  "<leader>xt" 'toggle-truncate-lines)
+  "<leader>xt"  'toggle-truncate-lines)
 
 ;; Project
 (general-def 'normal 'global
@@ -58,11 +77,13 @@
 
   ;; Files
 (general-def 'normal 'global
-  "<leader>fi" (lambda () (interactive) (find-file (expand-file-name "init.el"    config-base-directory)))
-  "<leader>fm" (lambda () (interactive) (find-file (expand-file-name "modules.el" config-base-directory)))
-  "<leader>fk" (lambda () (interactive) (find-file (expand-file-name "keys.el"    config-base-directory)))
-  "<leader>fc" (lambda () (interactive) (find-file (expand-file-name "custom.el"  config-base-directory)))
-  "<leader>fl" (lambda () (interactive) (find-file (expand-file-name "languages.el"  config-base-directory)))
+  "<leader>fi" (lambda () (interactive) (find-file my-init-file))
+  "<leader>fm" (lambda () (interactive) (find-file my-modules-file))
+  "<leader>fl" (lambda () (interactive) (find-file my-languages-file))
+  "<leader>fc" (lambda () (interactive) (find-file my-custom-file))
+  "<leader>fe" (lambda () (interactive) (find-file my-evil-file))
+  "<leader>fk" (lambda () (interactive) (find-file my-keys-file))
+
   "<leader>fn" (lambda () (interactive) (find-file org-default-notes-file))
   "<leader>fj" (lambda () (interactive) (find-file org-capture-journal-file))
   "<leader>ft" (lambda () (interactive) (find-file org-capture-todo-file)))
@@ -91,8 +112,16 @@
   "<leader>lr"	'eglot-rename
   "<leader>ae"	'flymake-show-project-diagnostics)
 
+;; Yasnippets
+(general-def 'normal 'global
+  "<leader>yn" 'yas-new-snippet
+  "<leader>yv" 'yas-visit-snippet-file
+  "<leader>yi" 'yas-insert-snippet)
+
+
 ;; Flutter
 (general-def 'normal 'global
+  "<leader>R" 'flutter-hot-restart
   "<leader>r" 'flutter-run-or-hot-reload)
 
 ;; Magit
@@ -129,3 +158,7 @@
   "<leader>cr" 'avy-copy-region
   "<leader>mr" 'avy-move-region
   "<leader>kr" 'avy-kill-region)
+
+;;
+(general-def 'normal 'global
+  "C-f" 'er/expand-region)

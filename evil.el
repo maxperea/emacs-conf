@@ -9,7 +9,9 @@
   (with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd "TAB") nil))
   (define-key input-decode-map "\C-i" [C-i])
   (evil-define-key 'insert 'global
-    (kbd "C-n") nil)
+    (kbd "C-n") nil
+    (kbd "C-p") nil)
+
   (evil-define-key 'normal 'global
     (kbd "q") nil
     (kbd "m") 'evil-record-macro

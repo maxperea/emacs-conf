@@ -1,9 +1,5 @@
 ;; This init file bootstraps use-package + straight if necessary,
 ;; before continuing initialization.
-
-;; Configure file directory for config files.
-(setq config-base-directory "~/Development/emacs-conf/")
-
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -21,9 +17,17 @@
 (straight-use-package 'use-package)
 
 ;; Files to load
-(load (expand-file-name "modules.el"   config-base-directory))
-(load (expand-file-name "languages.el" config-base-directory))
-(load (expand-file-name "custom.el"    config-base-directory))
-(load (expand-file-name "evil.el"      config-base-directory))
-(load (expand-file-name "keys.el"      config-base-directory))
+(setq config-base-directory "~/Development/emacs-conf/")
 
+(setq my-init-file	(expand-file-name "init.el"	 config-base-directory))
+(setq my-modules-file	(expand-file-name "modules.el"	 config-base-directory))
+(setq my-languages-file (expand-file-name "languages.el" config-base-directory))
+(setq my-custom-file	(expand-file-name "custom.el"	 config-base-directory))
+(setq my-evil-file	(expand-file-name "evil.el"	 config-base-directory))
+(setq my-keys-file	(expand-file-name "keys.el"	 config-base-directory))
+
+(load my-modules-file)
+(load my-languages-file)
+(load my-custom-file)
+(load my-evil-file)
+(load my-keys-file)

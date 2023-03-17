@@ -12,6 +12,9 @@
   (setq window-divider-default-bottom-width 1)
   (window-divider-mode)
 
+  (setq-default cursor-in-non-selected-windows nil)
+
+  (setq global-hl-line-mode nil)
   (setq-default mode-line-format nil)
   ;; (setq-default mode-line-format '("%e"
   ;; 				  mode-line-front-space
@@ -27,7 +30,10 @@
   ;; 				  ;; mode-line-misc-info
   ;; 				  mode-line-end-spaces))
 
-  (add-to-list 'default-frame-alist '(font . "JetBrains Mono 15"))
+  (setq-default ns-use-proxy-icon nil)
+  (setq-default frame-title-format "%*%b")
+
+  (add-to-list 'default-frame-alist '(font . "JetBrains Mono 14"))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
   (add-to-list 'default-frame-alist
@@ -51,7 +57,7 @@
   (setq display-line-numbers-grow-only t)
   (setq display-line-numbers-width-start t)
   (setq display-line-numbers-type 'visual)
-  (global-display-line-numbers-mode 1)
+  (global-display-line-numbers-mode nil)
 
   (blink-cursor-mode -1)
   (indent-tabs-mode nil)
@@ -207,7 +213,9 @@
   :straight
   (timu-spacegrey-theme :type git :host github :repo "maxperea/timu-spacegrey-theme")
   :config
-  (load-theme 'timu-spacegrey t))
+  (load-theme 'timu-spacegrey t)
+  ;; (load-theme 'modus-vivendi t)
+  )
 
 (use-package git-gutter
   :hook (prog-mode . git-gutter-mode))
@@ -228,3 +236,5 @@
 
 ;; TEST
 (use-package avy)
+(use-package expand-region)
+(use-package cyberpunk-theme)
