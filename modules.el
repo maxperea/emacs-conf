@@ -33,7 +33,7 @@
   (setq-default ns-use-proxy-icon nil)
   (setq-default frame-title-format "%*%b")
 
-  (add-to-list 'default-frame-alist '(font . "JetBrains Mono 14"))
+  (add-to-list 'default-frame-alist '(font . "JetBrains Mono 15"))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
   (add-to-list 'default-frame-alist
@@ -190,7 +190,7 @@
 (use-package corfu
   :config
   (setq corfu-auto t
-	corfu-auto-delay 0.2
+	corfu-auto-delay 0.1
 	corfu-auto-prefix 1)
   (add-hook 'eshell-mode-hook
 	    (lambda ()
@@ -213,9 +213,7 @@
   :straight
   (timu-spacegrey-theme :type git :host github :repo "maxperea/timu-spacegrey-theme")
   :config
-  (load-theme 'timu-spacegrey t)
-  ;; (load-theme 'modus-vivendi t)
-  )
+  (load-theme 'timu-spacegrey t))
 
 (use-package git-gutter
   :hook (prog-mode . git-gutter-mode))
@@ -236,5 +234,3 @@
 
 ;; TEST
 (use-package avy)
-(use-package expand-region)
-(use-package cyberpunk-theme)
