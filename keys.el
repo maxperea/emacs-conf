@@ -40,16 +40,17 @@
   "<leader>h"   'evil-window-set-height
   "<leader>H"   'evil-window-set-width
 
-  ;; Search
+  ;;
   "<leader>/"   'consult-ripgrep
   ","           'consult-line
   "C-,"         'consult-line-multi
+  "<leader>ew"  'eww
 
   ;; Flymake
   "TAB"         'flymake-goto-next-error
   "<leader>aN"  'consult-flymake
   "<leader>aP"  (lambda () (interactive) (consult-flymake t))
-  
+
   ;; Paste
   "C-p"         'consult-yank-pop
 
@@ -66,7 +67,7 @@
   "<leader>xt"  'toggle-truncate-lines)
 
 ;; Project
-(general-def 'normal 'global
+(general-def      'normal 'global
   "C-<backspace>" 'project-find-file
   "<leader>pc"    'project-compile
   "<leader>pu"    'project-shell-command
@@ -74,6 +75,12 @@
   "<leader>pk"    'project-kill-buffers
   "<leader>pr"    'project-query-replace-regexp
   "<leader>pp"    'my/project-switch-project)
+
+;; Perspective
+(general-def	  'normal 'global
+  "<leader>sp"	  'persp-switch
+  "C-M-h"	  'persp-prev
+  "C-M-l"	  'persp-next)
 
   ;; Files
 (general-def 'normal 'global

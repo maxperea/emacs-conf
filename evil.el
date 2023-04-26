@@ -1,5 +1,6 @@
 (use-package evil
   :init
+  (setq evil-search-module 'isearch)
   (setq evil-want-keybinding nil)
   (setq evil-want-C-i-jump nil)
   :config
@@ -21,6 +22,7 @@
   ;; TODO: Unbind "q" from evil-macro in temporary buffers.
   (evil-mode))
 
+
 (use-package key-chord
   :config
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
@@ -29,6 +31,8 @@
 (use-package evil-collection
   :after evil
   :config
+  (with-eval-after-load 'compile
+    (evil-collection-compile-setup))
   (with-eval-after-load 'magit
     (evil-collection-magit-setup))
   (with-eval-after-load 'dired

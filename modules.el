@@ -7,6 +7,7 @@
 
   (setq tab-always-indent nil)
 
+
   (setq window-divider-default-places t)
   (setq window-divider-default-right-width 1)
   (setq window-divider-default-bottom-width 1)
@@ -15,21 +16,22 @@
   (setq-default cursor-in-non-selected-windows nil)
 
   (setq global-hl-line-mode nil)
-  (setq-default mode-line-format nil)
-  ;; (setq-default mode-line-format '("%e"
-  ;; 				  mode-line-front-space
-  ;; 				  ;; mode-line-mule-info
-  ;; 				  mode-line-client
-  ;; 				  mode-line-modified
-  ;; 				  mode-line-remote
-  ;; 				  mode-line-frame-identification
-  ;; 				  mode-line-buffer-identification
-  ;; 				  ;; mode-line-position
-  ;; 				  ;; (vc-mode vc-mode)
-  ;; 				  ;; mode-line-modes
-  ;; 				  ;; mode-line-misc-info
-  ;; 				  mode-line-end-spaces))
+  ;; (setq-default mode-line-format nil)
+  (setq-default mode-line-format '("%e"
+				  mode-line-front-space
+				  ;; mode-line-mule-info
+				  mode-line-client
+				  mode-line-modified
+				  mode-line-remote
+				  mode-line-frame-identification
+				  mode-line-buffer-identification
+				  ;; mode-line-position
+				  (vc-mode vc-mode)
+				  ;; mode-line-modes
+				  ;; mode-line-misc-info
+				  mode-line-end-spaces))
 
+  (setq debug-on-error nil)
   (setq-default ns-use-proxy-icon nil)
   (setq-default frame-title-format "%*%b")
 
@@ -60,7 +62,7 @@
   (global-display-line-numbers-mode nil)
 
   (blink-cursor-mode -1)
-  (indent-tabs-mode nil)
+  (setq-default indent-tabs-mode nil)
   (save-place-mode 1)
   (recentf-mode 1)
   (winner-mode 1)
@@ -97,7 +99,20 @@
 
 (use-package general)
 
-(use-package magit)
+(use-package magit
+  :config
+  (setq magit-display-buffer-function
+	(lambda (buffer)
+	  (display-buffer
+	   buffer (if (and (derived-mode-p 'magit-mode)
+			   (memq (with-current-buffer buffer major-mode)
+				 '(magit-process-mode
+				   magit-revision-mode
+				   magit-diff-mode
+				   magit-stash-mode
+				   magit-status-mode)))
+		      nil
+		    '(display-buffer-same-window))))))
 
 (use-package git-timemachine)
 
@@ -138,8 +153,9 @@
   (setq eglot-sync-connect 0)
   ;; TODO: Now manually editing 'eglot-highlight-smybol-face' to
   ;; use 'secondary-selection', so that highlights actually are visible.
-  ;; TODO: Now manually removed calls go 'eglot--signal-textDocument/didSave' 
-  :hook ((before-save . eglot-format-buffer))) ;; TODO: only do in eglot mode
+  ;; TODO: Now manually removed calls to 'eglot--signal-textDocument/didSave'
+  ;; :hook ((before-save . eglot-format-buffer))
+  ) ;; TODO: only do in eglot mode
 
 (use-package yasnippet
   :config
@@ -154,6 +170,9 @@
 
 ;; Navigation
 (use-package consult
+  :config
+  ;; (consult-customize consult--source-buffer :hidden t :default nil)
+  ;; (add-to-list 'consult-buffer-sources persp-consult-source)
   :bind ("C-x b" . consult-buffer))
 
 (use-package vertico
@@ -209,11 +228,22 @@
   (corfu-popupinfo-mode))
 
 ;; Look & Feel
+
+;;Themes
+(use-package material-theme)
 (use-package timu-spacegrey-theme
   :straight
-  (timu-spacegrey-theme :type git :host github :repo "maxperea/timu-spacegrey-theme")
-  :config
-  (load-theme 'timu-spacegrey t))
+  (timu-spacegrey-theme :type git :host github :repo "maxperea/timu-spacegrey-theme"))
+(use-package darktooth-theme)
+(use-package cyberpunk-theme)
+(use-package kaolin-themes)
+(use-package sublime-themes)
+(use-package subatomic-theme)
+(use-package doom-themes)
+(use-package gruvbox-theme)
+
+(load-theme 'kaolin-valley-dark t)
+;; ---
 
 (use-package git-gutter
   :hook (prog-mode . git-gutter-mode))
@@ -234,3 +264,23 @@
 
 ;; TEST
 (use-package avy)
+
+(use-package copilot
+  :config
+  (defun my/copilot-tab ()
+    (interactive)
+    (or (copilot-accept-completion)
+	(indent-for-tab-command)))
+
+  (with-eval-after-load 'copilot
+    (general-def 'insert copilot-mode-map
+      "<tab>" #'my/copilot-tab))
+  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+  :ensure t)
+
+(use-package perspective
+  :init
+  (setq persp-suppress-no-prefix-key-warning t)
+  :config
+  (setq persp-state-default-file (expand-file-name "persp-state-save.data" config-base-directory))
+  (persp-mode))
