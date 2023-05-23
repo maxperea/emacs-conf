@@ -83,7 +83,7 @@
   "C-M-h"	  'persp-prev
   "C-M-l"	  'persp-next)
 
-  ;; Files
+;; Files
 (general-def 'normal 'global
   "<leader>fi" (lambda () (interactive) (find-file my-init-file))
   "<leader>fm" (lambda () (interactive) (find-file my-modules-file))
@@ -122,17 +122,6 @@
   "<leader>lr"	'eglot-rename
   "<leader>ae"	'flymake-show-project-diagnostics)
 
-;; LSP-bridge
-;; (general-def 'normal 'prog-mode-map
-;;   "gd"		'lsp-bridge-find-def
-;;   "gr"		'lsp-bridge-find-references
-;;   "K"		'lsp-bridge-popup-documentation
-;;   "RET"         'lsp-bridge-code-action
-;;   "TAB"         'lsp-bridge-diagnostic-jump-next
-;;   "<leader>ai"	'lsp-bridge-find-impl
-;;   "<leader>lr"	'lsp-bridge-rename
-;;   "<leader>ae"	'lsp-bridge-diagnostic-list)
-
 ;; Yasnippets
 (general-def 'normal 'global
   "<leader>yn" 'yas-new-snippet
@@ -147,6 +136,8 @@
 
 ;; Magit
 (general-def 'normal 'global
+  "<leader>gl" 'magit-log-all-branches
+  "<leader>gb" 'magit-blame-addition
   "<leader>gg" 'magit)
 
 ;; Git gutter
@@ -172,7 +163,6 @@
   "<leader>ss" 'toggle-frame-maximized-undecorated
   "<leader>sd" 'toggle-frame-maximized-undecorated-desktop
   "<leader>n" 'mpd/show-file-name)
-
 
 ;; Avy
 (general-def 'normal 'global

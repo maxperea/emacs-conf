@@ -1,14 +1,14 @@
 (use-package evil
   :init
-  (setq evil-search-module 'isearch)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-i-jump nil)
+  (setq evil-want-keybinding nil
+        evil-want-C-i-jump nil)
   :config
   (evil-set-leader '(normal visual) (kbd "<SPC>"))
   ;; Disable return and tab, while retaining jumping.
   (with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd "RET") nil))
   (with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd "TAB") nil))
   (define-key input-decode-map "\C-i" [C-i])
+
   (evil-define-key 'insert 'global
     (kbd "C-n") nil
     (kbd "C-p") nil)
@@ -21,7 +21,6 @@
     (kbd "<C-i>") 'evil-jump-forward)
   ;; TODO: Unbind "q" from evil-macro in temporary buffers.
   (evil-mode))
-
 
 (use-package key-chord
   :config
