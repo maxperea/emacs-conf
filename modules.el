@@ -233,4 +233,7 @@
 (use-package avy)
 
 (use-package perspective
+  :init
+  (setq persp-suppress-no-prefix-key-warning t)
+  :config
   (persp-mode))

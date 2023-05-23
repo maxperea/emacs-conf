@@ -40,8 +40,6 @@
   "<leader>wm"  'delete-other-windows
   "<leader>h"   'evil-window-set-height
   "<leader>H"   'evil-window-set-width
-
-  ;;
   "<leader>/"   'consult-ripgrep
   ","           'consult-line
   "C-,"         'consult-line-multi
@@ -91,7 +89,6 @@
   "<leader>fc" (lambda () (interactive) (find-file my-custom-file))
   "<leader>fe" (lambda () (interactive) (find-file my-evil-file))
   "<leader>fk" (lambda () (interactive) (find-file my-keys-file))
-
   "<leader>fn" (lambda () (interactive) (find-file org-default-notes-file))
   "<leader>fj" (lambda () (interactive) (find-file org-capture-journal-file))
   "<leader>ft" (lambda () (interactive) (find-file org-capture-todo-file)))
@@ -127,7 +124,6 @@
   "<leader>yn" 'yas-new-snippet
   "<leader>yv" 'yas-visit-snippet-file
   "<leader>yi" 'yas-insert-snippet)
-
 
 ;; Flutter
 (general-def 'normal 'global
