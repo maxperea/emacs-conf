@@ -8,9 +8,10 @@
 
   ;;Edit
   "<leader>es"  'replace-string
+  "<leader>u"  (lambda () (interactive) (evil-ex "%s/"))
   "<leader>er"  'replace-regexp
   "<leader>eqs" 'query-replace
-  "<leader>uqr" 'query-replace-regexp
+  "<leader>eqr" 'query-replace-regexp
 
   ;; Navigation
   "C-j"         'evil-forward-paragraph
@@ -113,11 +114,24 @@
 ;; Eglot
 (general-def 'normal 'prog-mode-map
   "gr"		'xref-find-references
+  "gd"          'xref-find-definitions
+  "gD"		'xref-find-definitions-other-window
   "K"		'eldoc-doc-buffer
   "RET"         'eglot-code-actions
   "<leader>ai"	'eglot-find-implementation
   "<leader>lr"	'eglot-rename
   "<leader>ae"	'flymake-show-project-diagnostics)
+
+;; LSP-bridge
+;; (general-def 'normal 'prog-mode-map
+;;   "gd"		'lsp-bridge-find-def
+;;   "gr"		'lsp-bridge-find-references
+;;   "K"		'lsp-bridge-popup-documentation
+;;   "RET"         'lsp-bridge-code-action
+;;   "TAB"         'lsp-bridge-diagnostic-jump-next
+;;   "<leader>ai"	'lsp-bridge-find-impl
+;;   "<leader>lr"	'lsp-bridge-rename
+;;   "<leader>ae"	'lsp-bridge-diagnostic-list)
 
 ;; Yasnippets
 (general-def 'normal 'global
@@ -134,6 +148,11 @@
 ;; Magit
 (general-def 'normal 'global
   "<leader>gg" 'magit)
+
+;; Git gutter
+(general-def 'normal 'global
+  "C-f"   'git-gutter:next-hunk
+  "C-S-f" 'git-gutter:previous-hunk)
 
 ;; Git-timemachine
 (general-def 'normal 'global
@@ -165,7 +184,3 @@
   "<leader>cr" 'avy-copy-region
   "<leader>mr" 'avy-move-region
   "<leader>kr" 'avy-kill-region)
-
-;;
-(general-def 'normal 'global
-  "C-f" 'er/expand-region)
