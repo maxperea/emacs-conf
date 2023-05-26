@@ -126,7 +126,6 @@ to directory DIR."
        (set-frame-height nil 56))
 
 ;; Sliding Server
-
 (defun taba-server-make-ct ()
   "Runs CT for the taba server. Required a server to be running."
   (interactive)

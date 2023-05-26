@@ -1,7 +1,7 @@
 (use-package evil
   :init
-  (setq evil-want-keybinding nil
-        evil-want-C-i-jump nil)
+  (setq-default evil-want-keybinding nil
+                evil-want-C-i-jump nil)
   :config
   (evil-set-leader '(normal visual) (kbd "<SPC>"))
   ;; Disable return and tab, while retaining jumping.
@@ -42,6 +42,9 @@
   (evil-commentary-mode))
 
 (use-package evil-surround
+  :hook
+  ((rustic-mode dart-mode) . (lambda ()
+                           (push '(?< . ("<" . ">")) evil-surround-pairs-alist)))
   :config
   (global-evil-surround-mode 1))
 

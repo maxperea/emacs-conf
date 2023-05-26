@@ -2,14 +2,21 @@
   :config
   (add-to-list 'default-frame-alist '(font . "JetBrains Mono 14" ))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+  (add-to-list 'default-frame-alist
+               '(vertical-scroll-bars . nil))
+
+  (add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode))
+
 
   (setq-default
+   shr-max-width 80
    indent-tabs-mode nil
    ns-use-proxy-icon nil
    frame-title-format "%*%b"
    cursor-in-non-selected-windows nil
    truncate-lines t
-   show-trailing-whitespace t)
+   show-trailing-whitespace nil)
 
   (setq
    inhibit-startup-message t
@@ -50,6 +57,12 @@
      mode-line-buffer-identification
      (vc-mode vc-mode)
      mode-line-end-spaces))
+
+  (add-hook 'compilation-mode-hook
+            (lambda () (visual-line-mode 1)))
+
+  (add-hook 'compilation-minor-mode-hook
+            (lambda () (visual-line-mode 1)))
 
   :hook
   (text-mode . auto-fill-mode)
