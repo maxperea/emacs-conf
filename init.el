@@ -20,11 +20,11 @@
 (setq config-base-directory "~/Development/emacs-conf/")
 
 (setq my-init-file	(expand-file-name "init.el"	 config-base-directory))
-(setq my-keys-file	(expand-file-name "keys.el"	 config-base-directory))
 (setq my-modules-file	(expand-file-name "modules.el"	 config-base-directory))
 (setq my-languages-file (expand-file-name "languages.el" config-base-directory))
-(setq my-custom-file	(expand-file-name "custom.el"	 config-base-directory))
 (setq my-evil-file	(expand-file-name "evil.el"	 config-base-directory))
+(setq my-custom-file	(expand-file-name "custom.el"	 config-base-directory))
+(setq my-keys-file	(expand-file-name "keys.el"	 config-base-directory))
 
 (load my-modules-file)
 (load my-languages-file)
