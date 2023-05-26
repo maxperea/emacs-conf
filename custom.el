@@ -11,12 +11,6 @@ to directory DIR."
     (let ((project-current-directory-override dir))
       (call-interactively command))))
 
-(defun mpd/send-note (note)
-  "Sends note to phone through ntfy."
-  (interactive "sNote to send:")
-  (shell-command
-   (concat "curl -H 'Title: Note' -d '" note "' ntfy.sh/magisktmorotmotormoln &> /dev/null && echo 'Note sent.'")))
-
 (defun mpd/load-aoc-input (day)
   "Loads latest aoc."
   (interactive "sEnter day:")
