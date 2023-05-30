@@ -72,12 +72,13 @@
   :straight
   (:type built-in)
   :config
-  (setq org-agenda-window-setup 'current-window)
-  (setq org-log-done 'time)
-  (setq org-directory "~/org")
-  (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
-  (setq org-capture-journal-file (expand-file-name "journal.org" org-directory))
-  (setq org-capture-todo-file (expand-file-name "todo.org" org-directory))
+  (setq org-agenda-window-setup 'current-window
+        org-log-done 'time
+        org-directory "~/org"
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-capture-journal-file (expand-file-name "journal.org" org-directory)
+        org-capture-todo-file (expand-file-name "todo.org" org-directory))
+
   (setq org-capture-templates
         '(("t" "Personal Todo" entry
            (file+headline org-capture-todo-file "Todos")
@@ -91,6 +92,7 @@
           ("j" "Journal" entry
            (file+olp+datetree org-capture-journal-file)
            "* %U %?\n%i\n%a" :prepend t)))
+
   (setq org-agenda-files
         (list org-default-notes-file
               org-capture-journal-file
