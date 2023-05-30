@@ -1,4 +1,8 @@
 (use-package yaml-mode)
+(use-package clang-format
+  :config
+  (setq clang-format-style "~/Development/cpp_review/.clang-format"))
+(use-package cmake-mode)
 (use-package markdown-mode)
 (use-package lua-mode)
 (use-package erlang)
@@ -6,7 +10,9 @@
 (use-package typescript-mode)
 (use-package flutter)
 (use-package swift-mode)
-(use-package web-mode)
+(use-package web-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode)))
 (use-package rustic
   :hook
   (rustic-mode . (lambda ()

@@ -1,13 +1,11 @@
 (use-package emacs
   :config
-  (add-to-list 'default-frame-alist '(font . "JetBrains Mono 14" ))
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark))
-  (add-to-list 'default-frame-alist
-               '(vertical-scroll-bars . nil))
-
-  (add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode))
-
+  (mapc
+   (lambda (item) (add-to-list 'default-frame-alist item))
+   '((font . "JetBrains Mono 14")
+     (ns-transparent-titlebar . t)
+     (ns-appearance . dark)
+     (vertical-scroll-bars . nil)))
 
   (setq-default
    shr-max-width 80
@@ -58,19 +56,14 @@
      (vc-mode vc-mode)
      mode-line-end-spaces))
 
-  (add-hook 'compilation-mode-hook
-            (lambda () (visual-line-mode 1)))
-
-  (add-hook 'compilation-minor-mode-hook
-            (lambda () (visual-line-mode 1)))
 
   :hook
+  (compilation-mode . visual-line-mode)
+  (compilation-minor-mode . visual-line-mode)
   (text-mode . auto-fill-mode)
   (before-save . delete-trailing-whitespace))
 
-(use-package org
-  :straight
-  (:type built-in)
+(use-package org :straight (:type built-in)
   :config
   (setq org-agenda-window-setup 'current-window
         org-log-done 'time
@@ -98,6 +91,14 @@
               org-capture-journal-file
               org-capture-todo-file)))
 
+(use-package eglot :straight (:type built-in)
+  :custom-face
+  (eglot-highlight-symbol-face ((t (:inherit secondary-selection))))
+  :config
+  (setq eglot-events-buffer-size 0
+        eglot-ignored-server-capabilities '(:inlayHintProvider)
+        eglot-confirm-server-initiated-edits nil))
+
 (use-package general)
 
 (use-package magit
@@ -124,8 +125,8 @@
 
 (use-package undo-tree
   :config
-  (setq undo-tree-auto-save-history t)
-  (setq undo-tree-history-directory-alist
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
         '(("." . "~/.emacs.d/undo")))
   (global-undo-tree-mode))
 
@@ -161,14 +162,6 @@
     (sp-local-pair "[" nil :post-handlers '(:add ("||\n[i]" "RET")))
     (sp-local-pair "(" nil :post-handlers '(:add ("||\n[i]" "RET")))
     (sp-local-pair "{" nil :post-handlers '(:add ("||\n[i]" "RET")))))
-
-(use-package eglot
-  :custom-face
-  (eglot-highlight-symbol-face ((t (:inherit secondary-selection))))
-  :config
-  (setq eglot-events-buffer-size 0)
-  (setq eglot-ignored-server-capabilities '(:inlayHintProvider))
-  (setq eglot-confirm-server-initiated-edits nil))
 
 (use-package consult)
 
