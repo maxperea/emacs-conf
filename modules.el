@@ -99,6 +99,36 @@
         eglot-ignored-server-capabilities '(:inlayHintProvider)
         eglot-confirm-server-initiated-edits nil))
 
+;; (use-package tree-sitter
+;;   :config
+
+;;   (setq tree-sitter-major-mode-language-alist '((c++-mode . cpp))))
+
+(use-package tree-sitter
+;;   :config
+;; (setq treesit-language-source-alist
+;;       '(
+;;         (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+;;         (dart "https://github.com/UserNobody14/tree-sitter-dart")
+;;         ))
+  :if (executable-find "tree-sitter")
+  :hook (((
+           c++-mode
+           rustic-mode
+           css-mode
+           dart-mode
+           ) . tree-sitter-mode)
+         ((
+           dart-mode
+           c++-mode
+           rustic-mode
+           css-mode
+           ) . tree-sitter-hl-mode)))
+
+(use-package tree-sitter-langs
+  :if (executable-find "tree-sitter")
+  :after tree-sitter)
+
 (use-package general)
 
 (use-package magit
@@ -235,6 +265,7 @@
   (setq hl-todo-keyword-faces
         '(("TODO"   . "#FFD700")
           ("DONE"   . "#00FF00")
+          ("NOTE"   . "#7777FF")
           ("FIXME"  . "#FF0000")))
   (global-hl-todo-mode))
 

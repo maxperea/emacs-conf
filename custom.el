@@ -125,3 +125,30 @@ to directory DIR."
   (interactive)
   (compilation-start
    (concat "cd " taba-server-dir " && make ct")))
+
+;; King
+(setq king-dir "~/Development/king_")
+
+(defun compile-king ()
+  "Comiles the king game."
+  (interactive)
+  (compilation-start
+   (concat "cd " king-dir " && cd build && make")))
+
+(defun clean-compile-king ()
+  "Comiles the king game."
+  (interactive)
+  (compilation-start
+   (concat "cd " king-dir " && cd build && make clean && make")))
+
+(defun compile-king-verbose ()
+  "Comiles the king game."
+  (interactive)
+  (compilation-start
+   (concat "cd " king-dir " && cd build && make clean && make verbose=true")))
+
+(defun compile-and-run-king ()
+  "Comiles and runs the king game."
+  (interactive)
+  (compilation-start
+   (concat "cd " king-dir " && cd build && make clean && make verbose=true && ../bin/Cpp-Test")))

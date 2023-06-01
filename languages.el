@@ -1,7 +1,10 @@
 (use-package yaml-mode)
 (use-package clang-format
+  :hook
+  (c++-ts-mode . (lambda ()
+              (add-hook 'before-save-hook 'clang-format-buffer nil 'make-it-local)))
   :config
-  (setq clang-format-style "~/Development/cpp_review/.clang-format"))
+  (setq-default clang-format-style "google"))
 (use-package cmake-mode)
 (use-package markdown-mode)
 (use-package lua-mode)
