@@ -1,6 +1,6 @@
-# Emacs Configuration
+# Ergonomic Emacs
 
-Custom emacs configuration.
+Custom emacs configuration with a focus on ergonomics.
 
 ## Setup
 
