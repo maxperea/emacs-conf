@@ -1,13 +1,11 @@
 (use-package emacs
   :config
-  (add-to-list 'default-frame-alist '(font . "JetBrains Mono 14" ))
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark))
-  (add-to-list 'default-frame-alist
-               '(vertical-scroll-bars . nil))
-
-  (add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode))
-
+  (mapc
+   (lambda (item) (add-to-list 'default-frame-alist item))
+   '((font . "JetBrains Mono 15")
+     (ns-transparent-titlebar . t)
+     (ns-appearance . dark)
+     (vertical-scroll-bars . nil)))
 
   (setq-default
    shr-max-width 80
@@ -19,6 +17,7 @@
    show-trailing-whitespace nil)
 
   (setq
+   vc-follow-symlinks t
    inhibit-startup-message t
    initial-scratch-message nil
    make-backup-files nil
@@ -96,9 +95,43 @@
               org-capture-journal-file
               org-capture-todo-file)))
 
+(use-package eglot :straight (:type built-in)
+  :custom-face
+  (eglot-highlight-symbol-face ((t (:inherit secondary-selection))))
+  :config
+  (setq eglot-events-buffer-size 0
+        ;; eglot-extend-to-xref t
+        eglot-ignored-server-capabilities '(:inlayHintProvider)
+        eglot-confirm-server-initiated-edits nil))
+
+(use-package tree-sitter
+  :defer
+  :config
+  (setq treesit-language-source-alist
+        '(
+          (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+          (rust "https://github.com/tree-sitter/tree-sitter-rust")
+          ))
+  :if (executable-find "tree-sitter")
+  :hook (((
+           c++-mode
+           rustic-mode
+           css-mode
+           ) . tree-sitter-mode)
+         ((
+           c++-mode
+           rustic-mode
+           ) . tree-sitter-hl-mode)))
+
+(use-package tree-sitter-langs
+  :defer
+  :if (executable-find "tree-sitter")
+  :after tree-sitter)
+
 (use-package general)
 
 (use-package magit
+  :defer
   :config
   (with-eval-after-load 'magit
     (define-key magit-mode-map (kbd "<SPC>") nil))
@@ -116,9 +149,8 @@
                       nil
                     '(display-buffer-same-window))))))
 
-(use-package forge :after magit)
-
-(use-package git-timemachine)
+(use-package git-timemachine
+  :defer)
 
 (use-package undo-tree
   :config
@@ -127,7 +159,8 @@
         '(("." . "~/.emacs.d/undo")))
   (global-undo-tree-mode))
 
-(use-package format-all)
+(use-package format-all
+  :defer)
 
 (use-package which-key
   :config
@@ -140,10 +173,12 @@
   (global-set-key (kbd "C-h k") #'helpful-key))
 
 (use-package yasnippet
+  :defer
   :config
   (yas-global-mode 1))
 
 (use-package doom-snippets
+  :defer
   :after yasnippet
   :straight (doom-snippets :type git
                            :host github
@@ -201,6 +236,7 @@
   (savehist-mode))
 
 (use-package corfu
+  :defer
   :config
   (setq corfu-auto t
         corfu-auto-delay 0.1
@@ -215,6 +251,7 @@
               :includes (corfu-popupinfo)))
 
 (use-package corfu-popupinfo
+  :defer
   :after corfu
   :config
   (setq corfu-popupinfo-delay 0.2)
@@ -240,13 +277,9 @@
   (setq hl-todo-keyword-faces
         '(("TODO"   . "#FFD700")
           ("DONE"   . "#00FF00")
+          ("UPDATE" . "#FFAAAA")
+          ("NOTE"   . "#7777FF")
           ("FIXME"  . "#FF0000")))
   (global-hl-todo-mode))
 
 (use-package avy)
-
-(use-package perspective
-  :init
-  (setq persp-suppress-no-prefix-key-warning t)
-  :config
-  (persp-mode))

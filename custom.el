@@ -87,6 +87,10 @@ to directory DIR."
   (taba-build-ios)
   (taba-build-appbundle))
 
+(defun test-compilation-fun ()
+  (interactive)
+  (compilation-start "echo $SHELL; echo $BASH "))
+
 (defun taba-android-release ()
   "Builds apk and moves it to shared folder."
   (interactive)

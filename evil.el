@@ -1,13 +1,14 @@
 (use-package evil
   :init
-  (setq-default evil-want-keybinding nil
-                evil-want-C-i-jump nil)
+   (setq-default evil-want-keybinding nil
+                 evil-want-C-i-jump nil)
   :config
   (evil-set-leader '(normal visual) (kbd "<SPC>"))
   ;; Disable return and tab, while retaining jumping.
   (with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd "RET") nil))
   (with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd "TAB") nil))
-  (define-key input-decode-map "\C-i" [C-i])
+   (define-key input-decode-map "\C-i" [C-i]
+              )
 
   (evil-define-key 'insert 'global
     (kbd "C-n") nil

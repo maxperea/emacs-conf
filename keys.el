@@ -46,7 +46,6 @@
   "<leader>ew"  'eww
 
   ;; Flymake
-  "TAB"         'flymake-goto-next-error
   "<leader>aN"  'consult-flymake
   "<leader>aP"  (lambda () (interactive) (consult-flymake t))
 
@@ -91,13 +90,15 @@
   "<leader>fk" (lambda () (interactive) (find-file my-keys-file))
   "<leader>fn" (lambda () (interactive) (find-file org-default-notes-file))
   "<leader>fj" (lambda () (interactive) (find-file org-capture-journal-file))
-  "<leader>ft" (lambda () (interactive) (find-file org-capture-todo-file)))
+  "<leader>ft" (lambda () (interactive) (find-file org-capture-todo-file))
+  "<leader>fg" (lambda () (interactive) (find-file "~/.gitconfig")))
 
 ;; Org
 (general-def 'normal 'org-mode-map
   "<RET>" 'org-open-at-point)
 
-(general-def 'normal 'global
+(use-package general)
+(general-def 'normal
   "<leader>X" 'org-capture
   "<leader>S" 'consult-org-agenda
   "<leader>A" 'org-agenda
@@ -110,6 +111,7 @@
 
 ;; Eglot
 (general-def 'normal 'prog-mode-map
+  "TAB"         'flymake-goto-next-error
   "gr"		'xref-find-references
   "gd"          'xref-find-definitions
   "gD"		'xref-find-definitions-other-window
@@ -170,3 +172,8 @@
   "<leader>cr" 'avy-copy-region
   "<leader>mr" 'avy-move-region
   "<leader>kr" 'avy-kill-region)
+
+
+;; Treemacs
+(general-def 'normal 'global
+  "§" 'treemacs)
