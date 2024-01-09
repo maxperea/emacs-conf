@@ -4,9 +4,7 @@
   :defer
   :hook
   (c++-ts-mode . (lambda ()
-                   (add-hook 'before-save-hook 'clang-format-buffer nil 'make-it-local)))
-  :config
-  (setq-default clang-format-style "google"))
+                   (add-hook 'before-save-hook 'clang-format-buffer nil 'make-it-local))))
 (use-package cmake-mode
   :defer)
 (use-package markdown-mode
@@ -49,3 +47,11 @@
   (dart-mode . (lambda ()
                  (setq-default eglot-workspace-configuration
                                '((:dart . (:completeFunctionCalls t  :applyEdit t)))))))
+
+(use-package angelscript-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.as\\'" . angelscript-mode))
+  :straight (angelscript-mode :type git
+                           :host github
+                           :repo "maxperea/angelscript-mode"
+                           :files ("*.el" "*")))

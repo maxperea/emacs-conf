@@ -1,13 +1,17 @@
 (use-package emacs
   :config
+  (set-frame-parameter nil 'undecorated t)
+
   (mapc
    (lambda (item) (add-to-list 'default-frame-alist item))
-   '((font . "JetBrains Mono 15")
+   '((font . "JetBrains Mono 14")
      (ns-transparent-titlebar . t)
      (ns-appearance . dark)
      (vertical-scroll-bars . nil)))
 
   (setq-default
+   tab-width 4
+   frame-resize-pixelwise t
    shr-max-width 80
    indent-tabs-mode nil
    ns-use-proxy-icon nil
@@ -25,7 +29,7 @@
    create-lockfiles nil
    gc-cons-threshold (* 100 1024 1024)
    read-process-output-max (* 1024 1024)
-   scroll-margin 8
+   scroll-margin 4
    ring-bell-function #'ignore
    tab-always-indent 'complete
    show-paren-delay 0
@@ -44,6 +48,8 @@
   (recentf-mode 1)
   (winner-mode 1)
   (global-subword-mode 1)
+
+  ;; (setq-default mode-line-format nil)
 
   (setq-default
    mode-line-format
@@ -77,16 +83,35 @@
   (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
   (setq org-capture-journal-file (expand-file-name "journal.org" org-directory))
   (setq org-capture-todo-file (expand-file-name "todo.org" org-directory))
+  (setq org-todo-keywords '((sequence "TODO" "|" "DONE")
+                            (sequence "TASK" "|" "DONE")
+                            ))
   (setq org-capture-templates
-        '(("t" "Personal Todo" entry
+        '(
+          ("t" "Personal Todo" entry
            (file+headline org-capture-todo-file "Todos")
            "* TODO %t %?\n%i\n" :prepend t)
-          ("l" "Personal Todo with Link" entry
+
+          ("T" "Personal Todo with Link" entry
            (file+headline org-capture-todo-file "Todos")
            "* TODO %t %?\n%i\n%a" :prepend t)
+
+          ("s" "Personal Task" entry
+           (file+headline org-capture-todo-file "Todos")
+           "* TASK %?\n%i\n" :prepend t)
+
+          ("S" "Personal Task with Link" entry
+           (file+headline org-capture-todo-file "Todos")
+           "* TASK %?\n%i\n%a" :prepend t)
+
           ("n" "Personal Note" entry
            (file+headline org-default-notes-file "Inbox")
+           "* %u %?\n%i\n" :prepend t)
+
+          ("N" "Personal Note with Link" entry
+           (file+headline org-default-notes-file "Inbox")
            "* %u %?\n%i\n%a" :prepend t)
+
           ("j" "Journal" entry
            (file+olp+datetree org-capture-journal-file)
            "* %U %?\n%i\n%a" :prepend t)))
@@ -95,14 +120,6 @@
               org-capture-journal-file
               org-capture-todo-file)))
 
-(use-package eglot :straight (:type built-in)
-  :custom-face
-  (eglot-highlight-symbol-face ((t (:inherit secondary-selection))))
-  :config
-  (setq eglot-events-buffer-size 0
-        ;; eglot-extend-to-xref t
-        eglot-ignored-server-capabilities '(:inlayHintProvider)
-        eglot-confirm-server-initiated-edits nil))
 
 (use-package tree-sitter
   :defer
@@ -177,6 +194,10 @@
   :config
   (yas-global-mode 1))
 
+;; (use-package doom-modeline
+;;   :init
+;;   (doom-modeline-mode))
+
 (use-package doom-snippets
   :defer
   :after yasnippet
@@ -195,13 +216,6 @@
     (sp-local-pair "(" nil :post-handlers '(:add ("||\n[i]" "RET")))
     (sp-local-pair "{" nil :post-handlers '(:add ("||\n[i]" "RET")))))
 
-(use-package eglot
-  :custom-face
-  (eglot-highlight-symbol-face ((t (:inherit secondary-selection))))
-  :config
-  (setq eglot-events-buffer-size 0)
-  (setq eglot-ignored-server-capabilities '(:inlayHintProvider))
-  (setq eglot-confirm-server-initiated-edits nil))
 
 (use-package consult)
 
@@ -275,7 +289,9 @@
 (use-package hl-todo
   :config
   (setq hl-todo-keyword-faces
-        '(("TODO"   . "#FFD700")
+        '(
+          ("TASK"   . "#AAAAFF")
+          ("TODO"   . "#FFD700")
           ("DONE"   . "#00FF00")
           ("UPDATE" . "#FFAAAA")
           ("NOTE"   . "#7777FF")
@@ -283,3 +299,81 @@
   (global-hl-todo-mode))
 
 (use-package avy)
+(use-package treemacs)
+
+;; LSP
+(use-package eglot :straight (:type built-in)
+  :custom-face
+  (eglot-highlight-symbol-face ((t (:inherit secondary-selection))))
+  :config
+  (add-to-list 'eglot-server-programs
+               '(angelscript-mode . ("angelscript-ls" "--stdio"))
+               '(angel-cpp-mode . ("angelscript-ls" "--stdio"))
+               )
+  (setq eglot-events-buffer-size 0
+        ;; eglot-extend-to-xref t
+        ;; eglot-ignored-server-capabilities '(:inlayHintProvider)
+        eglot-confirm-server-initiated-edits nil))
+
+(use-package exec-path-from-shell
+  :ensure
+  :init (exec-path-from-shell-initialize))
+
+(use-package dap-mode
+  :ensure
+  :config
+   (setq dap-cpptools-extension-version "1.5.1")
+   (setq dap-lldb-debug-program `(,(expand-file-name "/Users/maxp/.vscode/extensions/lanza.lldb-vscode-0.2.3/bin/darwin/bin/lldb-vscode")))
+
+   (require 'dap-cpptools)
+
+  (with-eval-after-load 'dap-cpptools
+    ;; Add a template specific for debugging Rust programs.
+    ;; It is used for new projects, where I can M-x dap-edit-debug-template
+    (dap-register-debug-template "MY CONF"
+                                 (list :type "lldb-mi"
+                                       :request "launch"
+                                       :name "Rust::Run"
+                                       :MIMode "lldb"
+                                       :miDebuggerPath "rust-lldb"
+                                       ;; :environment []
+                                       ;; :program "${workspaceFolder}/target/debug/seahorse_rnd"
+                                       :cwd nil
+                                       ;; :console "external"
+                                       ;; :dap-compilation "cargo build"
+                                       ;; :dap-compilation-dir "${workspaceFolder}"
+                                       ))
+    (dap-register-debug-template "Rust::CppTools Run Configuration"
+                                 (list :type "cppdbg"
+                                       :request "launch"
+                                       :name "Rust::Run"
+                                       :MIMode "lldb"
+                                       :miDebuggerPath "rust-lldb"
+                                       :environment []
+                                       ;; :program "${workspaceFolder}/target/debug/seahorse_rnd"
+                                       :cwd nil
+                                       :console "external"
+                                       :dap-compilation "cargo build"
+                                       :dap-compilation-dir "${workspaceFolder}")))
+
+  (with-eval-after-load 'dap-mode
+    (setq dap-default-terminal-kind "integrated") ;; Make sure that terminal programs open a term for I/O in an Emacs buffer
+    (dap-auto-configure-mode +1))
+
+  (dap-ui-mode)
+  (dap-ui-controls-mode 1)
+
+  (require 'dap-lldb)
+  (require 'dap-gdb-lldb)
+  ;; installs .extension/vscode
+  (dap-gdb-lldb-setup)
+  (dap-register-debug-template
+   "Rust::LLDB Run Configuration"
+   (list :type "lldb"
+         :request "launch"
+         :name "LLDB::Run"
+	 :gdbpath "rust-lldb"
+         :target nil
+         :cwd nil)))
+
+(use-package impatient-mode)

@@ -135,3 +135,34 @@ to directory DIR."
   (interactive)
   (compilation-start
    (concat "cd " taba-server-dir " && make ct")))
+
+(defun copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+(defun markdown-html (buffer)
+  (princ (with-current-buffer buffer
+           (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://ndossougbe.github.io/strapdown/dist/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+         (current-buffer)))
+
+(defun run-this-in-eshell (cmd)
+    "Runs the command 'cmd' in eshell."
+    (end-of-buffer)
+    (eshell-kill-input)
+    (message (concat "Running in Eshell: " cmd))
+    (insert cmd)
+    (eshell-send-input)
+    (end-of-buffer)
+    (eshell-bol)
+    (yank))
+
+(add-hook 'eshell-mode-hook (lambda ()
+    (interactive)
+    (local-set-key (kbd "C-l")
+    (run-this-in-eshell "clear 1"))))

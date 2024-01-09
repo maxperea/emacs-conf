@@ -1,5 +1,8 @@
 ;; Core
 (general-def    'normal 'global
+  ;; Dired
+  "<leader>pd"   'project-dired
+  "<leader>d"   'dired
   ;; Eval
   "<leader>ee"  'eval-defun
   "<leader>eb"  'eval-buffer
@@ -95,15 +98,31 @@
 
 ;; Org
 (general-def 'normal 'org-mode-map
+  "C-c ." 'org-time-stamp
+  "M-j"   'org-metadown
+  "M-k"   'org-metaup
+  "M-h"   'org-metaleft
+  "M-l"   'org-metaright
   "<RET>" 'org-open-at-point)
 
-(use-package general)
+(general-def 'normal 'org-agenda-mode-map
+  "C-c ." 'org-time-stamp
+  "<SPACE>" nil)
+
 (general-def 'normal
   "<leader>X" 'org-capture
   "<leader>S" 'consult-org-agenda
   "<leader>A" 'org-agenda
   "<leader>L" 'org-agenda-list
-  "<leader>T" 'org-todo-list)
+  "<leader>T" (lambda ()
+                (interactive)
+                (let ((current-prefix-arg "TODO"))
+                  (call-interactively #'org-todo-list)))
+  "<leader>Y" (lambda ()
+                (interactive)
+                (let ((current-prefix-arg "TASK"))
+                  (call-interactively #'org-todo-list)))
+  )
 
 ;; Dired
 (general-def 'normal 'dired-mode-map
@@ -177,3 +196,6 @@
 ;; Treemacs
 (general-def 'normal 'global
   "§" 'treemacs)
+
+(general-def '(insert normal) 'global
+  "C-l" (lambda () (interactive) (run-this-in-eshell "clear 1")))
