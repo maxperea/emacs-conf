@@ -195,7 +195,7 @@
 
 ;; Treemacs
 (general-def 'normal 'global
-  "§" 'treemacs)
+  "C-*" 'treemacs)
 
 (general-def '(insert normal) 'global
   "C-l" (lambda () (interactive) (run-this-in-eshell "clear 1")))

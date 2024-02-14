@@ -4,7 +4,7 @@
 
   (mapc
    (lambda (item) (add-to-list 'default-frame-alist item))
-   '((font . "JetBrains Mono 14")
+   '((font . "JetBrains Mono 12")
      (ns-transparent-titlebar . t)
      (ns-appearance . dark)
      (vertical-scroll-bars . nil)))
@@ -307,9 +307,7 @@
   (eglot-highlight-symbol-face ((t (:inherit secondary-selection))))
   :config
   (add-to-list 'eglot-server-programs
-               '(angelscript-mode . ("angelscript-ls" "--stdio"))
-               '(angel-cpp-mode . ("angelscript-ls" "--stdio"))
-               )
+               '(angelscript-mode . ("angelscript-ls" "--stdio")))
   (setq eglot-events-buffer-size 0
         ;; eglot-extend-to-xref t
         ;; eglot-ignored-server-capabilities '(:inlayHintProvider)
